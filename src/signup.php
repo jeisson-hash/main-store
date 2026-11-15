@@ -9,6 +9,7 @@ $ident_number = $_POST['idnumber'];
 $mobile_phone = $_POST['mphone'];
 $email = $_POST['email'];
 $passwd = MD5($_POST['pswd']);
+$PHOTO_URL = 'photos/photo_default.png';
 
 $sql_check_email = "SELECT * FROM users WHERE email = '$email' ";
 $res = pg_query($local_conn, $sql_check_email);
@@ -17,15 +18,17 @@ if ($total < 1){
 
     // Prepare query
     $sql = "
-        INSERT INTO users (firstname, lastname, ident_number, email, password)
-        VALUES (
-            '$first_name',
-            '$last_name',
-            '$ident_number',
-            '$email',
-            '$passwd'
-        );
-    ";
+            INSERT INTO users (firstname, lastname, ident_number, email, password, url_photo, mobile_phone)
+            VALUES (
+                '$first_name',
+                '$last_name',
+                '$ident_number',
+                '$email',
+                '$passwd',
+                '$PHOTO_URL',
+                '$mobile_phone'
+            );
+        ";
 
     // Execute query
     $res = pg_query($local_conn, $sql);
@@ -37,8 +40,8 @@ if ($total < 1){
     } else {
         echo "Error: User hasn't been created successfully!";
     }
-} else{
+    } else{
     echo "<script>alert('User email already exists. Try again !!!')</script>";
     header('refresh:0;url=signup.html');
-}
+    }
 ?>
