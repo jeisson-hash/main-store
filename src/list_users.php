@@ -50,7 +50,7 @@
                 <td><?=$row['mobile_phone'] ?></td>
                 <td><?=$row['status'] ?></td>
                 <td align="center">
-                    <a href="#">
+                    <a href="edit_user.php?userID=<?= $row['id'] ?>">
                         <img src="icons/edit.png" alt="Edit user" width="20">
                     </a>
                     <a href="#">
