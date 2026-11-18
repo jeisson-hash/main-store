@@ -1,4 +1,10 @@
 <?php
+    session_start();
+    if (!isset($_SESSION['user_id'])){
+    header('refresh:0;url=signin.html');
+    exit();
+    }
+
     /*
     Use this URL to print data in browser:
     http://localhost/main-store/src/list_users.php/
@@ -29,7 +35,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
+    <select>
+        <option>List all users</option>
+        <option>List active users only</option>
+        <option>List inactive users only</option>
+    <select>
     <table class="table table-striped">
         <tr>
             <th>Photo</th>
@@ -59,9 +71,19 @@
                     <a href="delete_user.php?userID=<?= $row['id'] ?>">
                         <img src="icons/trash.png" alt="Delete user" width="20">
                     </a>
+                    <a href="update_user_status.php?userID=<?= $row['id'] ?>&userStatus=<?= $row['status'] ?>">
+                        <?php
+                        if($row['status'] == 'Active'){
+                            echo "<img src='icons/disable.png' alt='Inactive user' width='20'>";
+                        }else{
+                            echo "<img src='icons/enable.png' alt='Active user' width='20'>";
+                        }
+                        ?>
+                    </a>
                 </td>
             </tr>
         <?php } ?>
     </table>
+    <a href="home.php">Go to home</a>
 </body>
 </html>
